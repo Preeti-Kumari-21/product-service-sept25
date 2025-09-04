@@ -21,12 +21,17 @@ public class FakeStoreProductService implements ProductService{
 
     @Override
     public Product getSingleProduct(Long productId) {
+
+        throw new RuntimeException("Not Implemented");
+        /*
         ResponseEntity<FakeStoreProductDto>  fakeStoreProductDtoResponseEntity =
                 restTemplate.getForEntity("https://fakestoreapi.com/products/" + productId,
                             FakeStoreProductDto.class);
         FakeStoreProductDto fakeStoreProductDto = fakeStoreProductDtoResponseEntity.getBody();
         return convertFakeStoreDtoToProduct(fakeStoreProductDto);
+        */
     }
+
 
     @Override
     public List<Product> getAllProducts() {
