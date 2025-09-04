@@ -27,7 +27,7 @@ public class ProductController {
     @GetMapping("/")        // http://localhost:8081/products/
     public List<Product> getAllProducts(){
         //Return all products
-        return new ArrayList<>();
+          return productService.getAllProducts();
     }
 
     @PostMapping("/")    // http://localhost:8081/products/
