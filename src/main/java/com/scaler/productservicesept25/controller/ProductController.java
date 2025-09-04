@@ -21,7 +21,7 @@ public class ProductController {
     @GetMapping("/{id}")            // http://localhost:8081/products/1
     public Product getSingleProduct(@PathVariable("id") Long productId) {
         // Logic to get a single product by ID
-      return new Product();
+      return productService.getSingleProduct(productId);
     }
 
     @GetMapping("/")        // http://localhost:8081/products/
