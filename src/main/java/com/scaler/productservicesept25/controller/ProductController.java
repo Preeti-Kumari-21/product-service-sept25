@@ -1,5 +1,6 @@
 package com.scaler.productservicesept25.controller;
 
+import com.scaler.productservicesept25.exceptions.ProductNotFoundExceptions;
 import com.scaler.productservicesept25.models.Product;
 import com.scaler.productservicesept25.services.ProductService;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")            // http://localhost:8081/products/1
-    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long productId) {
+    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long productId) throws ProductNotFoundExceptions {
         // Logic to get a single product by ID
         ResponseEntity<Product> responseEntity = new ResponseEntity<>(productService.getSingleProduct(productId),
                                                                                  HttpStatus.OK);
