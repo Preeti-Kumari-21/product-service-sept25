@@ -1,7 +1,9 @@
 package com.scaler.productservicesept25.controller;
 
+import com.scaler.productservicesept25.exceptions.CategoryNotFoundException;
 import com.scaler.productservicesept25.exceptions.ProductNotFoundExceptions;
 import com.scaler.productservicesept25.models.Product;
+import com.scaler.productservicesept25.repositories.ProductRepository;
 import com.scaler.productservicesept25.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -15,10 +17,12 @@ import java.util.List;
 @RequestMapping("/products")        // http://localhost:8081/products
 public class ProductController {
 
+    private final ProductRepository productRepository;
     private ProductService productService;
 
-    public ProductController(@Qualifier("selfProductService") ProductService productService) {
+    public ProductController(@Qualifier("selfProductService") ProductService productService, ProductRepository productRepository) {
         this.productService = productService;
+        this.productRepository = productRepository;
     }
 
     @GetMapping("/{id}")            // http://localhost:8081/products/1
@@ -36,8 +40,8 @@ public class ProductController {
     }
 
     @PostMapping("/")    // http://localhost:8081/products/
-    public Product createProduct(@RequestBody Product product){
-        return new Product();
+    public Product createProduct(@RequestBody Product product) throws CategoryNotFoundException {
+        return productService.createProduct(product);
     }
 
     @DeleteMapping("/{id}")   // http://localhost:8081/products/1

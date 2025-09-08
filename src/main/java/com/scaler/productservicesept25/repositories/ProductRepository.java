@@ -30,4 +30,8 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query("select p.title from products p where p.id=?1")
     Optional<Product> findOnlyProductTitleById(Long productId); //select title from products where id=?;
 
+    Product save(Product product);
+
+    @Override
+    void deleteById(Long productId);
 }

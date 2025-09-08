@@ -14,7 +14,7 @@ public interface CategoryRepository extends JpaRepository<Category,Long>{
     @Override
     Optional<Category> findById(Long aLong); //select * from categories where id=?
 
-    List<Category> findByTitle(String title); //select * from categories where title=?
+    Optional<Category> findByTitle(String title); //select * from categories where title=?
 
     List<Category> findByTitleContainsIgnoreCase(String title); //select * from categories where title like '%title%';
 
