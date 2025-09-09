@@ -21,4 +21,6 @@ public interface CategoryRepository extends JpaRepository<Category,Long>{
     @Query("select c.title from categories c where c.id=?1")
     Optional<Category> findOnlyCategoryTitleById(Long categoryId);
 
+    @Override
+    void deleteById(Long categoryId);
 }

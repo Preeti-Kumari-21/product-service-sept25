@@ -44,7 +44,7 @@ public class SelfProductService implements ProductService{
     @Override
     public Product createProduct(Product product) throws CategoryNotFoundException {
         //Check for category as it's an object inside product
-        Category category = product.getCategory();
+         Category category = product.getCategory();
 
         if(category == null){
             //throw some exception
