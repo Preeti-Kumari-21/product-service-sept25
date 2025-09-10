@@ -1,6 +1,5 @@
 package com.scaler.productservicesept25.dtos;
 
-import com.scaler.productservicesept25.models.Category;
 import lombok.Getter;
 import lombok.Setter;
 

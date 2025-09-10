@@ -16,7 +16,7 @@ import java.io.StringWriter;
 @ControllerAdvice
 public class ProductServiceExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException ex){
+    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException ex) {
 
         ExceptionDto exceptionDto = new ExceptionDto();
         exceptionDto.setMessage(ex.getMessage());
@@ -28,11 +28,11 @@ public class ProductServiceExceptionHandler {
         String stackTrace = sw.toString();
         exceptionDto.setResolutionDetails(stackTrace);
 
-        return new ResponseEntity<>(exceptionDto,HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(exceptionDto, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(ProductNotFoundExceptions.class)
-    public ResponseEntity<ProductNotFoundExceptionDto> handleProductNotFoundException(ProductNotFoundExceptions ex){
+    public ResponseEntity<ProductNotFoundExceptionDto> handleProductNotFoundException(ProductNotFoundExceptions ex) {
         ProductNotFoundExceptionDto productNotFoundExceptionDto = new ProductNotFoundExceptionDto();
 
         productNotFoundExceptionDto.setProductId(ex.getProductId());
@@ -44,11 +44,11 @@ public class ProductServiceExceptionHandler {
         String stackTrace = sw.toString();
         productNotFoundExceptionDto.setResolutionDetails(stackTrace);
 
-        return new ResponseEntity<>(productNotFoundExceptionDto,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(productNotFoundExceptionDto, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(CategoryNotFoundException.class)
-    public ResponseEntity<CategoryNotFoundExceptionDto> handleCategoryNotFoundException(CategoryNotFoundException ex){
+    public ResponseEntity<CategoryNotFoundExceptionDto> handleCategoryNotFoundException(CategoryNotFoundException ex) {
         CategoryNotFoundExceptionDto categoryNotFoundExceptionDto = new CategoryNotFoundExceptionDto();
         categoryNotFoundExceptionDto.setMessage(ex.getMessage());
 
@@ -58,6 +58,6 @@ public class ProductServiceExceptionHandler {
         String stackTrace = sw.toString();
         categoryNotFoundExceptionDto.setResolutionDetails(stackTrace);
 
-        return new ResponseEntity<>(categoryNotFoundExceptionDto,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(categoryNotFoundExceptionDto, HttpStatus.NOT_FOUND);
     }
 }

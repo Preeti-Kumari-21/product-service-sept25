@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Service("selfProductService")
 //@Primary
-public class SelfProductService implements ProductService{
+public class SelfProductService implements ProductService {
 
     ProductRepository productRepository;
     CategoryRepository categoryRepository;
@@ -44,20 +44,20 @@ public class SelfProductService implements ProductService{
     @Override
     public Product createProduct(Product product) throws CategoryNotFoundException {
         //Check for category as it's an object inside product
-         Category category = product.getCategory();
+        Category category = product.getCategory();
 
-        if(category == null){
+        if (category == null) {
             //throw some exception
             throw new CategoryNotFoundException("Category is required to create a product");
         }
 
         Optional<Category> optionalCategory = categoryRepository.findByTitle(category.getTitle());
 
-        if(optionalCategory.isEmpty()){
+        if (optionalCategory.isEmpty()) {
             //there is no category in the DB with this title
             //Create and save this category first
             category = categoryRepository.save(category);
-        }else{
+        } else {
             category = optionalCategory.get();
         }
         product.setCategory(category);

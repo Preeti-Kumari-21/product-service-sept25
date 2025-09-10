@@ -7,8 +7,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity(name="JT_Mentors")
-@PrimaryKeyJoinColumn(name="mentor_id")
+@Entity(name = "JT_Mentors")
+@PrimaryKeyJoinColumn(name = "mentor_id")
 public class Mentor extends User {
     private String companyName;
     private Integer yearsOfExperience;

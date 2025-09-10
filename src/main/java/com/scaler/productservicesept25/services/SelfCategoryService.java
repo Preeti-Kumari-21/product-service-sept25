@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service("selfCategoryService")
 public class SelfCategoryService implements CategoryService {
 
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     public SelfCategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;

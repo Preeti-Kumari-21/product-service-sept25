@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,7 +17,7 @@ import java.util.List;
 public class ProductController {
 
     private final ProductRepository productRepository;
-    private ProductService productService;
+    private final ProductService productService;
 
     public ProductController(@Qualifier("selfProductService") ProductService productService, ProductRepository productRepository) {
         this.productService = productService;
@@ -29,14 +28,14 @@ public class ProductController {
     public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long productId) throws ProductNotFoundExceptions {
         // Logic to get a single product by ID
         ResponseEntity<Product> responseEntity = new ResponseEntity<>(productService.getSingleProduct(productId),
-                                                                                 HttpStatus.OK);
+                HttpStatus.OK);
         return responseEntity;
     }
 
     @GetMapping("/")        // http://localhost:8081/products/
-    public List<Product> getAllProducts(){
+    public List<Product> getAllProducts() {
         //Return all products
-          return productService.getAllProducts();
+        return productService.getAllProducts();
     }
 
     @PostMapping("/")    // http://localhost:8081/products/
@@ -45,19 +44,19 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")   // http://localhost:8081/products/1
-    public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long productId){
+    public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long productId) {
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}")   // http://localhost:8081/products/1
     public ResponseEntity<Product> updateProduct(@PathVariable("id") Long productId,
-                                                 @RequestBody Product updates){
+                                                 @RequestBody Product updates) {
         return ResponseEntity.ok(new Product());
     }
 
     @PutMapping("/{id}")  // http://localhost:8081/products/1
     public ResponseEntity<Product> replaceProduct(@PathVariable("id") Long productId,
-                                                  @RequestBody Product newProduct){
+                                                  @RequestBody Product newProduct) {
         return ResponseEntity.ok(new Product());
     }
 }

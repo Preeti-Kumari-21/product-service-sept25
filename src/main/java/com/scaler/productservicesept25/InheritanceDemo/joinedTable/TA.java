@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity(name = "JT_TA")
-@PrimaryKeyJoinColumn(name="ta_id")
+@PrimaryKeyJoinColumn(name = "ta_id")
 public class TA extends User {
     private Integer numberOfHelpRequestsHandled;
     private Double rating;

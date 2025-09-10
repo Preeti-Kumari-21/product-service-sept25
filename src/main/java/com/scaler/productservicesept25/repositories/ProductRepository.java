@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product,Long> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Override
     Optional<Product> findById(Long aLong); //select * from products where id=?
@@ -25,7 +25,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     List<Product> findByCategory(Category category); //select * from products where category_id=?;
 
     List<Product> findByCategory_Id(Long categoryId); //select * from products where category_id=?;
-    
+
     List<Product> findByCategoryTitle(String categoryTitle); //select * from products p join categories c on p.category_id=c.id where c.title=?;
 
     @Query("select p.title from products p where p.id=?1")
