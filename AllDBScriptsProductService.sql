@@ -1,11 +1,10 @@
-CREATE DATABASE productservicesept25db;
-CREATE USER productservicesept25db;
-GRANT ALL privileges ON productservicesept25db.* to 'productservicesept25db';
+CREATE USER EcommerceApplicationDBUser;
 
--- ALTER USER 'productservicesept25db'@'localhost' IDENTIFIED WITH mysql_native_password BY '';
+CREATE DATABASE productservicesept25db;
+GRANT ALL privileges ON productservicesept25db.* to 'EcommerceApplicationDBUser';
 FLUSH PRIVILEGES;
 
--- DROP DATABASE productservicesept25db;
--- DROP USER 'productservicesept25db';
 
-
+CREATE DATABASE userservicesept25db;
+GRANT ALL privileges ON userservicesept25db.* to 'EcommerceApplicationDBUser';
+FLUSH PRIVILEGES;
