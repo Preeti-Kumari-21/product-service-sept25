@@ -23,13 +23,17 @@ public class ProductController {
     private final ProductService productService;
     private final AuthCommons authCommons;
 
-    public ProductController(@Qualifier("selfProductService") ProductService productService, ProductRepository productRepository, AuthCommons authCommons) {
+    public ProductController(@Qualifier("selfProductService") ProductService productService,
+                             ProductRepository productRepository,
+                             AuthCommons authCommons) {
         this.productService = productService;
         this.productRepository = productRepository;
         this.authCommons = authCommons;
     }
 
-    @GetMapping("/{id}/{token}")            // http://localhost:8081/products/1
+
+
+    /*@GetMapping("/{id}/{token}")            // http://localhost:8081/products/1
     public Product getSingleProduct(@PathVariable("id") Long productId, @PathVariable("token") String tokenValue) throws ProductNotFoundExceptions {
         // Logic to get a single product by ID
 
@@ -38,6 +42,23 @@ public class ProductController {
         if(userDto == null){
             throw new UnauthorizedException("Invalid Token");
         }
+        return productService.getSingleProduct(productId);
+
+        *//*ResponseEntity<Product> responseEntity = new ResponseEntity<>(productService.getSingleProduct(productId),
+                HttpStatus.OK);
+        return responseEntity;*//*
+    }*/
+
+
+    @GetMapping("/{id}")            // http://localhost:8081/products/1
+    public Product getSingleProduct(@PathVariable("id") Long productId) throws ProductNotFoundExceptions {
+        // Logic to get a single product by ID
+
+       /* UserDto userDto = authCommons.validateToken(tokenValue);
+
+        if(userDto == null){
+            throw new UnauthorizedException("Invalid Token");
+        }*/
         return productService.getSingleProduct(productId);
 
         /*ResponseEntity<Product> responseEntity = new ResponseEntity<>(productService.getSingleProduct(productId),

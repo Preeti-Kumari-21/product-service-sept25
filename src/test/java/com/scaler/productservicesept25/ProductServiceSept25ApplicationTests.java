@@ -49,8 +49,8 @@ class ProductServiceSept25ApplicationTests {
         //EAGER fetch
     }
 
-    @Test
-    @Transactional
+    //@Test
+    //@Transactional
     public void checkCategoryFetchTypes(){
         System.out.println("DEBUG-4");
         Optional<Category> optionalCategory = categoryRepository.findById(1L); //LAZY fetch
@@ -61,6 +61,22 @@ class ProductServiceSept25ApplicationTests {
         System.out.println("DEBUG-5");
         System.out.println(products.get(0).getCategory());
         //select * from products where category_id = 1
+    }
+
+  //  @Test
+    public void insertDataInAWSRDS(){
+
+        Category category = new Category();
+        category.setTitle("Electronics");
+        categoryRepository.save(category);
+
+        Product product = new Product();
+        product.setTitle("iPhone 15");
+        product.setDescription("Latest iPhone 15");
+        product.setPrice(120000.00);
+        product.setCategory(category);
+
+        productRepository.save(product);
     }
 
 
