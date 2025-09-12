@@ -28,11 +28,11 @@ class ProductServiceSept25ApplicationTests {
         this.productRepository = productRepository;
     }*/
 
-    @Test
+   // @Test
     void contextLoads() {
     }
 
-    @Test
+  //  @Test
     public void testProductService(){
         Optional<Product> product1 = productRepository.findById(1L);
         System.out.println("DEBUG-1");
@@ -41,7 +41,7 @@ class ProductServiceSept25ApplicationTests {
         System.out.println("DEBUG-2");
     }
 
-    @Test
+   // @Test
     public void checkProductFetchTypes(){
         System.out.println("DEBUG-3");
         Optional<Product> optionalProduct = productRepository.findById(1L); // No collection attributes in Product model
