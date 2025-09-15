@@ -5,6 +5,7 @@ import com.scaler.productservicesept25.exceptions.ProductNotFoundExceptions;
 import com.scaler.productservicesept25.models.Category;
 import com.scaler.productservicesept25.models.Product;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -104,6 +105,11 @@ public class FakeStoreProductService implements ProductService {
 
     @Override
     public ResponseEntity<Product> replaceProduct(Long productId, Product newProduct) {
+        return null;
+    }
+
+    @Override
+    public Page<Product> getProductByTitle(String title, int pageNumber, int pageSize) {
         return null;
     }
 }

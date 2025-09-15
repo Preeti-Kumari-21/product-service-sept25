@@ -3,7 +3,9 @@ package com.scaler.productservicesept25.services;
 import com.scaler.productservicesept25.exceptions.CategoryNotFoundException;
 import com.scaler.productservicesept25.exceptions.ProductNotFoundExceptions;
 import com.scaler.productservicesept25.models.Product;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -19,4 +21,6 @@ public interface ProductService {
     ResponseEntity<Product> updateProduct(Long productId, Product updates);
 
     ResponseEntity<Product> replaceProduct(Long productId, Product newProduct);
+
+    Page<Product> getProductByTitle(String title, int pageNumber, int pageSize) throws ProductNotFoundExceptions;
 }

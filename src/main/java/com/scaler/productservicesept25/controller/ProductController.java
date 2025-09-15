@@ -9,6 +9,7 @@ import com.scaler.productservicesept25.models.Product;
 import com.scaler.productservicesept25.repositories.ProductRepository;
 import com.scaler.productservicesept25.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class ProductController {
     private final ProductService productService;
     private final AuthCommons authCommons;
 
-    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService,
+    public ProductController(@Qualifier("selfProductService") ProductService productService,
                              ProductRepository productRepository,
                              AuthCommons authCommons) {
         this.productService = productService;
@@ -92,5 +93,12 @@ public class ProductController {
     public ResponseEntity<Product> replaceProduct(@PathVariable("id") Long productId,
                                                   @RequestBody Product newProduct) {
         return ResponseEntity.ok(new Product());
+    }
+
+    @GetMapping("/title/{title}/{pageNumber}/{pageSize}") // http://localhost:8081/products/tilte/{title}
+    public Page<Product> getProductByTitle(@PathVariable("title") String title,
+                                           @PathVariable("pageNumber") int pageNumber,
+                                           @PathVariable("pageSize") int pageSize) throws ProductNotFoundExceptions {
+        return productService.getProductByTitle(title, pageNumber, pageSize);
     }
 }

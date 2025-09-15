@@ -2,6 +2,8 @@ package com.scaler.productservicesept25.repositories;
 
 import com.scaler.productservicesept25.models.Category;
 import com.scaler.productservicesept25.models.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,9 +18,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Override
     Optional<Product> findById(Long aLong); //select * from products where id=?
 
-    List<Product> findByTitle(String title); //select * from products where title=?
+    List<Product> findByTitle(String title) ; //select * from products where title=?
 
-    List<Product> findByTitleContainsIgnoreCase(String title); //select * from products where title like '%title%';
+    Page<Product> findByTitleContainsIgnoreCase(String title, Pageable pageable); //select * from products where title like '%title%';
 
     List<Product> findByPriceBetween(Double priceAfter, Double priceBefore); //select * from products where price between ? and ?;
 
@@ -38,4 +40,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value = "select * from products p where p.id=:id", nativeQuery = true)
     Product findProductWithGivenId(@Param("id") long productId);
+
 }

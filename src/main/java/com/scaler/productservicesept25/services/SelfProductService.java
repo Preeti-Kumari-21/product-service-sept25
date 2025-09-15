@@ -6,6 +6,9 @@ import com.scaler.productservicesept25.models.Category;
 import com.scaler.productservicesept25.models.Product;
 import com.scaler.productservicesept25.repositories.CategoryRepository;
 import com.scaler.productservicesept25.repositories.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -78,5 +81,15 @@ public class SelfProductService implements ProductService {
     @Override
     public ResponseEntity<Product> replaceProduct(Long productId, Product newProduct) {
         return null;
+    }
+
+    @Override
+    public Page<Product> getProductByTitle(String title, int pageNumber, int pageSize) throws ProductNotFoundExceptions{
+
+        Sort sort = Sort
+                .by(Sort.Direction.ASC, "title");
+
+        Page<Product> pageOfProducts =  productRepository.findByTitleContainsIgnoreCase(title, PageRequest.of(pageNumber, pageSize, sort));
+        return pageOfProducts;
     }
 }
