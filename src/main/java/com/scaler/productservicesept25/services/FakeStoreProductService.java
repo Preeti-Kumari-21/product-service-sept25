@@ -4,6 +4,8 @@ import com.scaler.productservicesept25.dtos.FakeStoreProductDto;
 import com.scaler.productservicesept25.exceptions.ProductNotFoundExceptions;
 import com.scaler.productservicesept25.models.Category;
 import com.scaler.productservicesept25.models.Product;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -14,9 +16,11 @@ import java.util.List;
 public class FakeStoreProductService implements ProductService {
 
     private final RestTemplate restTemplate;
+    private final RedisTemplate<String,Object> redisTemplate;
 
-    public FakeStoreProductService(RestTemplate restTemplate) {
+    public FakeStoreProductService(RestTemplate restTemplate, RedisTemplate<String,Object> redisTemplate) {
         this.restTemplate = restTemplate;
+        this.redisTemplate = redisTemplate;
     }
 
     public static Product convertFakeStoreDtoToProduct(FakeStoreProductDto fakeStoreProductDto) {
@@ -39,6 +43,17 @@ public class FakeStoreProductService implements ProductService {
 
     @Override
     public Product getSingleProduct(Long productId) throws ProductNotFoundExceptions {
+
+        //first check if the product with this productId exists in Redis cache
+        //if exists, return the product from Redis cache
+        Product product = (Product) redisTemplate.opsForHash().get("PRODUCTS","PRODUCT_"+productId);
+        if(product != null){
+            return product;
+            //CACHE HIT
+        }
+
+        //if not exists(i.e product==null), call the external API to fetch the product details
+        //CACHE MISS
         ResponseEntity<FakeStoreProductDto> fakeStoreProductDtoResponseEntity =
                 restTemplate.getForEntity("https://fakestoreapi.com/products/" + productId,
                         FakeStoreProductDto.class);
@@ -47,7 +62,10 @@ public class FakeStoreProductService implements ProductService {
         if (fakeStoreProductDto == null) {
             throw new ProductNotFoundExceptions(productId);
         }
-        return convertFakeStoreDtoToProduct(fakeStoreProductDto);
+        //save the fetched product in Redis cache
+        product = convertFakeStoreDtoToProduct(fakeStoreProductDto);
+        redisTemplate.opsForHash().put("PRODUCTS","PRODUCT_"+productId,product);
+        return product;
     }
 
     @Override
