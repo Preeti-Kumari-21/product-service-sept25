@@ -55,16 +55,13 @@ public class ProductController {
     public Product getSingleProduct(@PathVariable("id") Long productId) throws ProductNotFoundExceptions {
         // Logic to get a single product by ID
 
-       /* UserDto userDto = authCommons.validateToken(tokenValue);
+        UserDto userDto = authCommons.validateToken("Sample Token");
 
-        if(userDto == null){
+/*        if(userDto == null){
             throw new UnauthorizedException("Invalid Token");
         }*/
         return productService.getSingleProduct(productId);
 
-        /*ResponseEntity<Product> responseEntity = new ResponseEntity<>(productService.getSingleProduct(productId),
-                HttpStatus.OK);
-        return responseEntity;*/
     }
 
     @GetMapping("/")        // http://localhost:8081/products/
